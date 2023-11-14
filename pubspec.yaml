@@ -38,6 +38,7 @@ dependencies:
   shared_preferences: ^2.2.2
   beautiful_textfields: ^0.0.1
   google_fonts: ^6.1.0
+  cool_dropdown: ^2.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:beautiful_textfields/beautiful_textfields.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -12,9 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
+      debugShowCheckedModeBanner: false,
       title: 'To-Do List App',
+      
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
+         textTheme: GoogleFonts.latoTextTheme(
+          Theme.of(context).textTheme,
+        ),
       ),
       home: const ToDoListScreen(),
     );
@@ -71,6 +79,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         foregroundColor: Colors.white,
@@ -84,11 +93,23 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
+                const SizedBox(
+                  height: 50,
+                ),
                 Expanded(
-                  child: MyTextField(hintText: 'Let your intrusive thoughts win', inputType: TextInputType.name, labelText2: 'Only you and your local storage know what you want :)', secure1: false, capital: TextCapitalization.characters, nameController1: taskController)
+                  child: MyTextField(hintText: 'Let your intrusive thoughts win', inputType: TextInputType.name, labelText2: 'Only you and your local storage know what you want :)', secure1: false, capital: TextCapitalization.characters, nameController1: taskController )
                 ),
                 const SizedBox(width: 16.0),
+
+                
+
                 DropdownButton<String?>(
+                  elevation: 8,
+                  iconEnabledColor: Colors.white,
+                  iconDisabledColor: Colors.white,
+                  focusColor: Colors.white,
+                  dropdownColor: const Color.fromARGB(255, 13, 70, 78),
+                  
                   value: selectedPriority,
                   onChanged: (String? newValue) {
                     if (newValue != null) {
@@ -101,7 +122,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
-                      child: Text(value),
+                      child: Text(value , style: const TextStyle(
+                        color: Colors.white,
+                      
+                      ),),
                     );
                   }).toList(),
                 ),
@@ -112,7 +136,10 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
           //   onPressed: addTask,
           //   child: const Text('Add Task'),
           // ),
-          Login(buttonName: 'Add', onTap: addTask, bgColor: Colors.black, textColor: Colors.white),
+          Padding(
+            padding: const EdgeInsets.only(left: 40, right: 40, bottom: 20 , top : 10),
+            child: Login(buttonName: 'Add', onTap: addTask, bgColor: const Color.fromARGB(255, 94, 221, 237), textColor: Colors.white),
+          ),
           const SizedBox(height: 16.0),
           Expanded(
             child: ListView.builder(
@@ -175,6 +202,58 @@ class Login extends StatelessWidget {
         child: Text(
           buttonName,
           style: TextStyle(fontSize: 20, color: textColor),
+        ),
+      ),
+    );
+  }
+}
+
+
+
+
+class MyTextField extends StatelessWidget {
+  const MyTextField({
+    Key? key,
+    required this.hintText,
+    required this.inputType,
+    required this.labelText2,
+    required this.secure1,
+    required this.capital,
+    required this.nameController1,
+  }) : super(key: key);
+
+  final String hintText;
+  final TextInputType inputType;
+  final String labelText2;
+  final bool secure1;
+  final TextCapitalization capital;
+  final TextEditingController nameController1;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      child: TextFormField(
+        cursorColor: Colors.cyan,
+        controller: nameController1,
+        keyboardType: inputType,
+        obscureText: secure1,
+        textInputAction: TextInputAction.next,
+        textCapitalization: capital,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.all(20),
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.grey.shade400, fontSize: 12),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.cyan, width: 1),
+            borderRadius: BorderRadius.all(Radius.circular(16)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.cyan.shade200, width: 1),
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+          ),
+          labelText: labelText2,
+          labelStyle: const TextStyle(color: Color.fromARGB(255, 255, 255, 255 ) , fontSize: 12),
         ),
       ),
     );
