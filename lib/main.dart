@@ -61,7 +61,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     if (taskController.text.isNotEmpty) {
       setState(() {
         tasks.add(
-            'Before I pass out from AKGEC $selectedPriority: ${taskController.text}');
+            'Before I pass out from AKGEC $selectedPriority ${taskController.text}');
         taskController.clear();
         saveTasks();
       });
