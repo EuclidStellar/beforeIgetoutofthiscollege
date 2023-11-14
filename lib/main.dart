@@ -61,7 +61,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
     if (taskController.text.isNotEmpty) {
       setState(() {
         tasks.add(
-            'Before I pass out from AKGEC $selectedPriority ${taskController.text}');
+            'Before I get out from AKGEC $selectedPriority ${taskController.text}');
         taskController.clear();
         saveTasks();
       });
@@ -106,18 +106,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                   // const SizedBox(
                   //   height: 50,
                   // ),
-                  Expanded(
-                      child: MyTextField(
-                          hintText: 'Let your intrusive thoughts win',
-                          inputType: TextInputType.name,
-                          labelText2:
-                              'Only you and your local storage know what you want :)',
-                          secure1: false,
-                          capital: TextCapitalization.characters,
-                          nameController1: taskController)),
-                  const SizedBox(width: 16.0),
-
-                  DropdownButton<String?>(
+                   DropdownButton<String?>(
                     elevation: 8,
                     iconEnabledColor: Colors.white,
                     iconDisabledColor: Colors.white,
@@ -144,6 +133,45 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                       );
                     }).toList(),
                   ),
+                   const SizedBox(width: 16.0),
+                  Expanded(
+                      child: MyTextField(
+                          hintText: 'Let your intrusive thoughts win',
+                          inputType: TextInputType.name,
+                          labelText2:
+                              'Only you and your local storage know what you want :)',
+                          secure1: false,
+                          capital: TextCapitalization.characters,
+                          nameController1: taskController)),
+                 
+
+                  // DropdownButton<String?>(
+                  //   elevation: 8,
+                  //   iconEnabledColor: Colors.white,
+                  //   iconDisabledColor: Colors.white,
+                  //   focusColor: Colors.white,
+                  //   dropdownColor: const Color.fromARGB(255, 13, 70, 78),
+                  //   value: selectedPriority,
+                  //   onChanged: (String? newValue) {
+                  //     if (newValue != null) {
+                  //       setState(() {
+                  //         selectedPriority = newValue;
+                  //       });
+                  //     }
+                  //   },
+                  //   items: ['I should', 'I must', 'I will', 'I want to']
+                  //       .map<DropdownMenuItem<String>>((String value) {
+                  //     return DropdownMenuItem<String>(
+                  //       value: value,
+                  //       child: Text(
+                  //         value,
+                  //         style: const TextStyle(
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //     );
+                  //   }).toList(),
+                  // ),
                 ],
               ),
             ),
