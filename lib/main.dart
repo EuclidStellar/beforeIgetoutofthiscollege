@@ -1,11 +1,14 @@
+import 'package:beautiful_textfields/beautiful_textfields.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,12 +16,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ToDoListScreen(),
+      home: const ToDoListScreen(),
     );
   }
 }
 
 class ToDoListScreen extends StatefulWidget {
+  const ToDoListScreen({super.key});
+
   @override
   _ToDoListScreenState createState() => _ToDoListScreenState();
 }
@@ -67,21 +72,22 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('To-Do List'),
+        backgroundColor: Colors.black,
+        foregroundColor: Colors.white,
+        centerTitle: true,
+        elevation: 0,
+        title: const Text('What you want after AKGEC?'),
       ),
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    controller: taskController,
-                    decoration: InputDecoration(labelText: 'Enter task'),
-                  ),
+                  child: MyTextField(hintText: 'Let your intrusive thoughts win', inputType: TextInputType.name, labelText2: 'Only you and your local storage know what you want :)', secure1: false, capital: TextCapitalization.characters, nameController1: taskController)
                 ),
-                SizedBox(width: 16.0),
+                const SizedBox(width: 16.0),
                 DropdownButton<String?>(
                   value: selectedPriority,
                   onChanged: (String? newValue) {
@@ -102,11 +108,12 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
               ],
             ),
           ),
-          ElevatedButton(
-            onPressed: addTask,
-            child: Text('Add Task'),
-          ),
-          SizedBox(height: 16.0),
+          // ElevatedButton(
+          //   onPressed: addTask,
+          //   child: const Text('Add Task'),
+          // ),
+          Login(buttonName: 'Add', onTap: addTask, bgColor: Colors.black, textColor: Colors.white),
+          const SizedBox(height: 16.0),
           Expanded(
             child: ListView.builder(
               itemCount: tasks.length,
@@ -114,7 +121,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                 return ListTile(
                   title: Text(tasks[index]),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       deleteTask(index);
                     },
@@ -124,6 +131,51 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+
+
+
+
+class Login extends StatelessWidget {
+  const Login({
+    Key? key,
+    required this.buttonName,
+    required this.onTap,
+    required this.bgColor,
+    required this.textColor,
+  }) : super(key: key);
+
+  final String buttonName;
+  final VoidCallback onTap;
+  final Color bgColor;
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: bgColor,
+      ),
+      child: TextButton(
+        style: ButtonStyle(
+          elevation: MaterialStateProperty.all(12),
+          shadowColor: MaterialStateProperty.all(Colors.black),
+          overlayColor: MaterialStateProperty.resolveWith(
+            (states) => Colors.transparent,
+          ),
+        ),
+        onPressed: onTap,
+        child: Text(
+          buttonName,
+          style: TextStyle(fontSize: 20, color: textColor),
+        ),
       ),
     );
   }
