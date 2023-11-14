@@ -121,7 +121,7 @@ class _ToDoListScreenState extends State<ToDoListScreen> {
                     elevation: 8,
                     iconEnabledColor: Colors.white,
                     iconDisabledColor: Colors.white,
-                    focusColor: Colors.white,
+                    focusColor: const Color.fromARGB(255, 0, 0, 0),
                     dropdownColor: const Color.fromARGB(255, 13, 70, 78),
                     value: selectedPriority,
                     onChanged: (String? newValue) {
